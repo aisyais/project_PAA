@@ -2,55 +2,60 @@ import random
 import time
 import matplotlib.pyplot as plt
 
-def generate_array(n, max_value, seed=42):
+def generate_array(n, max_value, seed):
     random.seed(seed)
-    return [random.randint(0, max_value) for _ in range(n)]
+    return [random.randint(1, max_value) for _ in range(n)]
 
-def is_unique(array):
-    seen = set()
-    for num in array:
-        if num in seen:
-            return False  # Not unique
-        seen.add(num)
-    return True  # Unique
 
-def calculate_worst_case(n):
-    return n  # Worst case assumes comparing all elements
+def is_unique(arr):
+    return len(arr) == len(set(arr))
 
-def calculate_average_case(n):
-    return n / 2  # Average case assumes checking roughly half the elements
 
-# Parameters
-n_values = [100, 150, 200, 250, 300, 350, 400, 500]
+def measure_time(func, arr):
+    start_time = time.perf_counter()
+    result = func(arr)
+    end_time = time.perf_counter()
+    return result, end_time - start_time
+
+
+arr_sizes = [100, 150, 200, 250, 300, 350, 400, 500]
 max_value = 208
 seed = 42
 
-# Data for plotting
-worst_case_times = []
-average_case_times = []
 
-for n in n_values:
-    array = generate_array(n, max_value, seed)
-    
-    # Timing worst case
-    start_time = time.time()
-    _ = is_unique(array)  # Simulate the uniqueness check
-    end_time = time.time()
-    worst_case_time = calculate_worst_case(n)
-    worst_case_times.append(worst_case_time)
-    
-    # Calculate average case
-    average_case_time = calculate_average_case(n)
-    average_case_times.append(average_case_time)
+results = []
 
-# Plotting
-for i, n in enumerate(n_values):
-    plt.figure(figsize=(8, 6))
-    plt.plot(n_values, worst_case_times, label='Worst Case', marker='o')
-    plt.plot(n_values, average_case_times, label='Average Case', marker='x')
-    plt.title(f"Worst Case and Average Case Analysis for n={n}")
-    plt.xlabel("Array Size (n)")
-    plt.ylabel("Number of Operations")
-    plt.legend()
-    plt.grid(True)
+
+for n in arr_sizes:
+    arr = generate_array(n, max_value, seed)
+    unique, time_taken = measure_time(is_unique, arr)
+    results.append((n, unique, time_taken))
+    print(f"Ukuran array: {n}, Keterangan: {'Unik' if unique else 'Tidak unik'}, Waktu: {time_taken:.6f} detik")
+
+case_results = []
+for n in arr_sizes:
+    arr = generate_array(n, max_value, seed)
+   
+    _, worst_case_time = measure_time(is_unique, arr)
+    
+   
+    avg_time = 0
+    for _ in range(10):
+        _, time_taken = measure_time(is_unique, arr)
+        avg_time += time_taken
+    avg_time /= 10
+
+  
+    case_results.append((n, avg_time, worst_case_time))
+    print(f"Ukuran array: {n}, Waktu Kasus Rata-rata: {avg_time:.6f} detik, Waktu Kasus Terburuk: {worst_case_time:.6f} detik")
+
+
+for n, avg_time, worst_case_time in case_results:
+    plt.figure(figsize=(8, 5))
+    plt.plot([1, 2], [avg_time, worst_case_time], marker='o', label=f'n = {n}')
+    plt.title(f"Performa untuk n = {n}")
+    plt.xticks([1, 2], ["Average Case", "Worst Case"])
+    plt.ylabel("Waktu (detik)")
+    plt.legend(title="Ukuran Array")
+    plt.grid()
     plt.show()
