@@ -47,7 +47,7 @@ for n in arr_sizes:
 
   
     case_results.append((n, avg_time, worst_case_time))
-    print(f"Ukuran array: {n}, Waktu Kasus Rata-rata: {avg_time:.6f} detik, Waktu Kasus Terburuk: {worst_case_time:.6f} detik")
+    print(f"Ukuran array: {n}, Waktu average case: {avg_time:.6f} detik, Waktu worst case: {worst_case_time:.6f} detik")
 
 
 
@@ -55,27 +55,22 @@ sizes = [n for n, _, _ in case_results]
 avg_times = [avg_time for _, avg_time, _ in case_results]
 worst_times = [worst_time for _, _, worst_time in case_results]
 
-for n, avg_time, worst_case_time in case_results:
-    plt.figure(figsize=(6, 4))
-    
-   
-    x_values = ["Average Case", "Worst Case"]
-    avg_y = [avg_time, avg_time]  
-    worst_y = [worst_case_time, worst_case_time]  
 
-   
-    plt.plot(x_values, avg_y, marker='o', linestyle='-', color='blue', label="Average Case")
-    plt.plot(x_values, worst_y, marker='x', linestyle='--', color='orange', label="Worst Case")
-    
-    plt.title(f"Average Case dan Worst Case untuk n = {n}")
-    plt.ylabel("Waktu (detik)")
-    plt.xlabel("Tipe Kasus")
-    
-    
+plt.figure(figsize=(10, 6))
 
-    
-   
-    plt.legend()
-    plt.grid(axis='y', linestyle='--', alpha=0.7)
-    plt.tight_layout()
-    plt.show()
+plt.plot(sizes, avg_times, marker='o', linestyle='-', color='blue', label="Average Case")
+
+
+plt.plot(sizes, worst_times, marker='x', linestyle='--', color='orange', label="Worst Case")
+
+
+plt.title("Perbandingan Waktu Average Case dan Worst Case")
+plt.xlabel("Ukuran Array (n)")
+plt.ylabel("Waktu Eksekusi (detik)")
+
+
+plt.legend()
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+
+plt.tight_layout()
+plt.show()
