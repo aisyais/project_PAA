@@ -1,0 +1,12 @@
+Nur Aisyah _ F55123042
+
+Hasil perhitungan Waktu dari average case dan worst case untuk masing-masing array sebanyak n data :
+
+Ukuran array: 100, Waktu average case: 0.00005 detik, Waktu worst case: 0.00014 detik
+Ukuran array: 150, Waktu average case: 0.00006 detik, Waktu worst case: 0.00020 detik
+Ukuran array: 200, Waktu average case: 0.00007 detik, Waktu worst case: 0.00014 detik
+Ukuran array: 250, Waktu average case: 0.00008 detik, Waktu worst case: 0.00014 detik
+Ukuran array: 300, Waktu average case: 0.00009 detik, Waktu worst case: 0.00025 detik
+Ukuran array: 350, Waktu average case: 0.00009 detik, Waktu worst case: 0.00015 detik
+Ukuran array: 400, Waktu average case: 0.00013 detik, Waktu worst case: 0.00024 detik
+Ukuran array: 500, Waktu average case: 0.00015 detik, Waktu worst case: 0.00041 detik
